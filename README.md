@@ -5,6 +5,8 @@ Grain Monitoring tool to read DS18B20 sensors.
 * Read Sensor
 * Sort sensors by position. this value is stored in the internal memory
 * setup wifi and use [webrepl](https://micropython.org/webrepl/)
+* email a report
+* text on alarm(text via email)
 
 
 ###Resources
