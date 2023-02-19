@@ -11,24 +11,31 @@ print('Found DS devices: ', roms)  # scans for one-wire devices and shows their 
 # f = open("cableAddress001", "ab")
 # f.write(romDec)
 # f.close()
-
+count=0
 
 while True:
     ds_sensor.convert_temp()
     time.sleep_ms(750)
     for rom in (roms):
+        count+=1
+        print("sensor ",count)
         # print(bytes(rom))
         print(ds_sensor.read_temp(rom), "*Celsius")
         # print(ds_sensor.read_scratch(rom))
         # if count in range(0,10):
         #     print("10 sensors")
         print("trying to write to my_file.bin")
-        f = open("my_file.bin", "ab")
-        f.write(rom)
+        f = open("my_file.txt", "a")
+        f.write("Sensor ")
+        f.write(str(count))
+        #f.write(rom)
         f.write("\n")
-        f.write(ds_sensor.read_scratch(rom))
+        f.write(str(ds_sensor.read_temp(rom)))
+        f.write("\n")
+        #f.write(output)
         f.write("\n")
         f.close()
 
     break;
+
 
