@@ -1,0 +1,62 @@
+SSD1306
+IO18 - SDA
+IO17 - SCL
+
+MICRO SD
+IO13 - CS
+IO11 - MOSI
+IO14 - SCK
+IO02 - MISO
+IO12 - SD2
+
+SX1276/78
+
+IO8=RESET
+IO7=CS
+IO5=SCK
+IO6=MOSI
+IO3=MISO
+IO9=DIO0
+IO33=DIO1
+IO34=DIO2
+IO21=DIO3
+IO10=DIO4
+IO36=DIO5
+
+SX1262(notused but traces will be connected)
+
+IO8=RESET
+IO7=CS
+IO5=SCK
+IO6=MOSI
+IO3=MISO
+IO33=DIO1
+IO34=BUSY
+
+SX1280(notused but traces will be connected)
+
+IO8=RESET
+IO7=CS
+IO5=SCK
+IO6=MOSI
+IO3=MISO
+IO33=DIO1
+IO34=BUSY
+IO21=Rx
+IO10=Tx
+
+IO37 - BUILTIN GREEN LED
+IO35 - enabled power to lora chips
+IO32 - not present
+IO38 - free
+IO39 - free but labled IO39/MTCK
+IO15 - free
+IO16 - free
+IO19 - DM on USBC
+IO20 - DP on USBC
+IO22 - not availible
+IO23 - Not used
+IO24 - Not used
+IO25 - Not used
+IO26 - Not used
+IO27 - Not used
