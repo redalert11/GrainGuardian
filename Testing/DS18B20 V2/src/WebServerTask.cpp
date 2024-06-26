@@ -3,6 +3,8 @@
 #include <ArduinoJson.h>
 #include <DallasTemperature.h>
 #include "WebServerTask.h"
+#include <SPIFFS.h>
+
 
 // Web server instance
 AsyncWebServer server(80);
@@ -29,8 +31,13 @@ String getAddressString(const uint8_t* deviceAddress) {
 
 // Web server task
 void webServerTask(void *parameter) {
-  // Start server
+  // Serve the index.html file from SPIFFS
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/index.html", "text/html");
+  });
+
+  // API endpoint to get sensor data
+  server.on("/api/data", HTTP_GET, [](AsyncWebServerRequest *request){
     xSemaphoreTake(bufferMutex, portMAX_DELAY);
     String localSensorAddresses = sensorAddresses;
     String localTemperatureReadings = temperatureReadings;
@@ -78,12 +85,15 @@ void webServerTask(void *parameter) {
 
     request->send(200, "application/json", jsonString);
   });
+
+  // Start server
   server.begin();
 
   for(;;) {
     vTaskDelay(1000 / portTICK_PERIOD_MS);  // Delay to keep the task alive
   }
 }
+
 
 void createWebServerTask() {
   // Create the web server task

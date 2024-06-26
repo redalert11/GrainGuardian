@@ -6,6 +6,7 @@
 #include <freertos/semphr.h>
 #include <OneWire.h>
 #include <DallasTemperature.h>
+#include <SPIFFS.h>  // Include the SPIFFS library
 #include "LEDTask.h"
 #include "TempReadTask.h"
 #include "DisplayTask.h"
@@ -41,7 +42,7 @@ DallasTemperature sensors(&oneWire);
 void setup() {
   // Initialize serial communication
   Serial.begin(115200);
-  
+
   // Initialize I2C with specified pins
   Wire.begin(SDA_PIN, SCL_PIN);
 
@@ -71,6 +72,12 @@ void setup() {
   Serial.println("Connected to WiFi");
   Serial.println(WiFi.localIP());
 
+  // Initialize SPIFFS
+  if(!SPIFFS.begin(true)){
+    Serial.println("An Error has occurred while mounting SPIFFS");
+    return;
+  }
+
   // Initialize OTA
   setupOTA();
 
@@ -78,7 +85,6 @@ void setup() {
   bufferMutex = xSemaphoreCreateMutex();
 
   // Create the tasks
-  //createLEDTask();
   createTempReadTask();
   createDisplayTask();
   createWebServerTask();
