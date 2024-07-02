@@ -47,3 +47,20 @@
     }
   })
 })()
+
+document.addEventListener('DOMContentLoaded', function () {
+  var systemSubmenuToggle = document.querySelector('a[href="#systemSubmenu"]');
+  var chevronIcon = systemSubmenuToggle.querySelector('.toggle-icon');
+
+  systemSubmenuToggle.addEventListener('click', function () {
+    chevronIcon.classList.toggle('rotate');
+  });
+
+  var collapseElement = document.querySelector('#systemSubmenu');
+  collapseElement.addEventListener('shown.bs.collapse', function () {
+    chevronIcon.classList.add('rotate');
+  });
+  collapseElement.addEventListener('hidden.bs.collapse', function () {
+    chevronIcon.classList.remove('rotate');
+  });
+});

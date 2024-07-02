@@ -32,6 +32,17 @@
   font-size: .75rem;
 }
 
+/* New styles for System submenu */
+#systemSubmenu {
+  padding-left: 2rem;
+}
+
+#systemSubmenu .nav-link {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  font-size: 0.8125rem; /* Slightly smaller than parent items */
+}
+
 /*
  * Navbar
  */
@@ -45,4 +56,12 @@
 
 .navbar .form-control {
   padding: .75rem 1rem;
+}
+
+.toggle-icon {
+  transition: transform 0.3s ease-in-out;
+}
+
+.toggle-icon.rotate {
+  transform: rotate(90deg);
 }

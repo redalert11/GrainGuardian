@@ -55,6 +55,10 @@ void webServerTask(void *parameter) {
     request->send(SPIFFS, "/dashboard.css", "text/css");
   });
 
+  server.on("/bootstrap-icons.min.css", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/bootstrap-icons.min.css", "text/css");
+  });
+
   // Serve the JavaScript files
   server.on("/bootstrap.bundle.min.js", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send(SPIFFS, "/bootstrap.bundle.min.js", "application/javascript");
@@ -66,6 +70,10 @@ void webServerTask(void *parameter) {
 
   server.on("/dashboard.js", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send(SPIFFS, "/dashboard.js", "application/javascript");
+  });
+
+  server.on("/color-modes.js", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/color-modes.js", "application/javascript");
   });
 
   // API endpoint to get partition and SPIFFS info
