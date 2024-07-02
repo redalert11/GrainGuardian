@@ -51,6 +51,10 @@ void webServerTask(void *parameter) {
   // Handle 404
   server.onNotFound(notFound);
 
+  server.on("/partitioninfo", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(200, "text/plain", getPartitionInfo());
+  });
+
   // API endpoint to get partition and SPIFFS info
   server.on("/api/system-info", HTTP_GET, [](AsyncWebServerRequest *request){
     // Get partition information

@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>ESP32 Partition Info</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 20px; }
+    h1 { color: #0066cc; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    th, td {
+      padding: 12px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+  <h1>ESP32 Partition Information</h1>
+  <table id="partitionInfoTable">
+    <tr>
+      <th>Partition</th>
+      <th>Size (bytes)</th>
+      <th>Percentage (%)</th>
+    </tr>
+  </table>
+  <script>
+    function loadPartitionInfo() {
+      fetch('/partitioninfo')
+        .then(response => response.text())
+        .then(data => {
+          const partitionInfoTable = document.getElementById('partitionInfoTable');
+          partitionInfoTable.innerHTML = `
+            <tr>
+              <th>Partition</th>
+              <th>Size (bytes)</th>
+              <th>Percentage (%)</th>
+            </tr>
+          `;
+          const partitions = data.split(',');
+          partitions.forEach(partition => {
+            if (partition) {
+              const [name, size, percentage] = partition.split(':');
+              const row = `
+                <tr>
+                  <td>${name}</td>
+                  <td>${size}</td>
+                  <td>${percentage}</td>
+                </tr>
+              `;
+              partitionInfoTable.innerHTML += row;
+            }
+          });
+        });
+    }
+    setInterval(loadPartitionInfo, 5000);
+    loadPartitionInfo();
+  </script>
+</body>
+</html>
