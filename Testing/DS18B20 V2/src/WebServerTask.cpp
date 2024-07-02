@@ -22,6 +22,10 @@ String getPartitionInfo() {
   return info;
 }
 
+void notFound(AsyncWebServerRequest *request) {
+  request->send(404, "text/plain", "File Not Found");
+}
+
 // Function to get SPIFFS file information
 void getSPIFFSInfo(JsonArray& filesArray) {
   File root = SPIFFS.open("/");
@@ -41,40 +45,11 @@ void webServerTask(void *parameter) {
     return;
   }
 
-  // Serve the index.html file from SPIFFS
-  server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send(SPIFFS, "/index.html", "text/html");
-  });
+  // Serve files from SPIFFS
+  server.serveStatic("/", SPIFFS, "/").setDefaultFile("index.html");
 
-  // Serve the CSS files
-  server.on("/bootstrap.min.css", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send(SPIFFS, "/bootstrap.min.css", "text/css");
-  });
-
-  server.on("/dashboard.css", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send(SPIFFS, "/dashboard.css", "text/css");
-  });
-
-  server.on("/bootstrap-icons.min.css", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send(SPIFFS, "/bootstrap-icons.min.css", "text/css");
-  });
-
-  // Serve the JavaScript files
-  server.on("/bootstrap.bundle.min.js", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send(SPIFFS, "/bootstrap.bundle.min.js", "application/javascript");
-  });
-
-  server.on("/chart.umd.js", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send(SPIFFS, "/chart.umd.js", "application/javascript");
-  });
-
-  server.on("/dashboard.js", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send(SPIFFS, "/dashboard.js", "application/javascript");
-  });
-
-  server.on("/color-modes.js", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send(SPIFFS, "/color-modes.js", "application/javascript");
-  });
+  // Handle 404
+  server.onNotFound(notFound);
 
   // API endpoint to get partition and SPIFFS info
   server.on("/api/system-info", HTTP_GET, [](AsyncWebServerRequest *request){
