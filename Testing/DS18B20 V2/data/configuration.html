@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Configuration</title>
+  </head>
+  <body>
+    <div id="base-placeholder"></div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        fetch('base.html')
+          .then(response => response.text())
+          .then(data => {
+            document.getElementById('base-placeholder').innerHTML = data;
+            document.getElementById('content-placeholder').innerHTML = `
+              <h2>Configuration Page</h2>
+              <p>This is the configuration page content.</p>
+            `;
+          });
+      });
+    </script>
+    <script src="bootstrap.bundle.min.js"></script>
+  </body>
+</html>
