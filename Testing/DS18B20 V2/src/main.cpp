@@ -14,8 +14,12 @@
 #include "OTATask.h"
 
 // WiFi credentials
-const char* ssid = "Nacho Internet";
-const char* password = "redalert";
+//const char* ssid = "Nacho Internet";
+//const char* password = "redalert";
+
+// WiFi credentials @ home
+const char* ssid = "Mordor";
+const char* password = "t59s8w2f1s8";
 
 // Global variables to store temperature readings
 String temperatureReadings;
