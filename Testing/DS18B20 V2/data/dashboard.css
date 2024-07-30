@@ -32,6 +32,18 @@
   font-size: .75rem;
 }
 
+/* New styles for Bin submenu */
+#binSubmenu {
+  padding-left: 2rem;
+}
+
+#binSubmenu .nav-link {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  font-size: 0.8125rem; /* Slightly smaller than parent items */
+}
+
+
 /* New styles for System submenu */
 #systemSubmenu {
   padding-left: 2rem;
